@@ -35,34 +35,36 @@ That's all there is to it. In this example the clockworkHeart has been told that
 ### Methods
 #### clockworkHeart.start()
 Start a clockworkHeart.
+
 Arguments:
-1. days - days until session expiry.
-2. hours - hours until session expiry.
-3. mins - minutes until session expiry.
-4. secs - seconds until session expiry.
-5. warningMins - minutes before expiry to display warning.
-6. warningSecs - seconds before expiry to display warning.
-7. heartbeatFilepath - filepath of file to $.post to in order to keep the session alive.
+
+1. days - days until session expiry.  
+2. hours - hours until session expiry.  
+3. mins - minutes until session expiry.  
+4. secs - seconds until session expiry.  
+5. warningMins - minutes before expiry to display warning.  
+6. warningSecs - seconds before expiry to display warning.  
+7. heartbeatFilepath - filepath of file to $.post to in order to keep the session alive.  
 8. expiryFilepath - filepath of file to redirect to after session has expired.
 ```javascript
-clockworkHeart.start(0,0,30,0,1,0,"heartbeat.cfm","index.cfm?reason=sessionexpired");
+clockworkHeart.start(days,hours,mins,secs,warningMins,warningSecs,heartbeatFilepath,expiryFilepath);
 ```
 #### clockworkHeart.restart()
 Manually indicate that the session was renewed.
 ```javascript
-clockworkHeart.restart(0,0,30,0,1,0,"server/heartbeat.cfm","index.cfm?reason=sessionexpired");
+clockworkHeart.restart(days,hours,mins,secs,warningMins,warningSecs,heartbeatFilepath,expiryFilepath);
 ```
 #### clockworkHeart.perpetual()
 Send a constant heartbeat to the server to keep the session alive for as long as this JavaScript is running.
 
-Don't use this as the same time as `clockworkHeart.start` or `clockworkHeart.reset`. It's meant to be used as way of keeping a user's session alive as long as their browser is open--without requiring any user interaction.
+Don't use this as the same time as `clockworkHeart.start()` or `clockworkHeart.reset()`. It's meant to be used as way of keeping a user's session alive as long as their browser is open--without requiring any user interaction.
 ```javascript
-clockworkHeart.perpetual(0,0,0,20,"server/heartbeat.cfm");
+clockworkHeart.perpetual(days,hours,mins,secs,heartbeatFilepath);
 ```
 #### clockworkHeart.beat()
 Manually send a heartbeat to keep the session alive--generally use `clockworkHeart.restart` instead of this.
 ```javascript
-clockworkHeart.beat("server/heartbeat.cfm");
+clockworkHeart.beat(heartbeatFilepath);
 ```
 ### Variables
 #### clockworkHeart.debug
