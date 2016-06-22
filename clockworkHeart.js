@@ -98,15 +98,15 @@ function define_clockworkHeart(){
 	}
 	};
 		
-	clockworkHeart.perpetual = function(days,hours,mins,secs,filepath){
-		if (days === undefined || hours === undefined || mins === undefined || secs === undefined || filepath === undefined){
+	clockworkHeart.perpetual = function(days,hours,mins,secs,heartbeatFilepath){
+		if (days === undefined || hours === undefined || mins === undefined || secs === undefined || heartbeatFilepath === undefined){
 			console.log("USAGE: clockworkHeart.perpetual(daysBeforeSessionExpiry, hoursBeforeSessionExpiry, minutesBeforeSessionExpiry, secondsBeforeSessionExpiry, fileToAccessForHeartbeat)");
 		}
 		else{
 			var milliseconds = (days*86400000)+(hours*3600000)+(mins*60000)+(secs*1000);
 			setTimeout(
 				function(){
-					clockworkHeart.beat(filepath);
+					clockworkHeart.beat(heartbeatFilepath);
 					clockworkHeart.perpetual(days,hours,mins,secs,filepath);
 				//Once we are 98% of the way to the timeout, the heartbeat is sent.
 				//This way the session should never actually expired before before we try to renew it.
@@ -116,13 +116,13 @@ function define_clockworkHeart(){
 	};
 
 	//This function contains a simple bit of ajax that should post to a server-processed file, thus renewing the session.
-	clockworkHeart.beat = function(filepath){
-		if (filepath === undefined){
+	clockworkHeart.beat = function(heartbeatFilepath){
+		if (heartbeatFilepath === undefined){
 			console.log("USAGE: clockworkHeart.beat(fileToAccessForHeartbeat)");
 		}
 		else{
-			$.post(filepath);
-			if(clockworkHeart.debug === true){console.log("Heartbeat sent to the file at " + filepath);}
+			$.post(heartbeatFilepath);
+			if(clockworkHeart.debug === true){console.log("Heartbeat sent to the file at " + heartbeatFilepath);}
 		}
 	};
 return clockworkHeart;
