@@ -54,7 +54,9 @@ expiryFilepath | string | Filepath of file to redirect to after session has expi
 ```javascript
 clockworkHeart.restart(days,hours,mins,secs,warningMins,warningSecs,heartbeatFilepath,expiryFilepath);
 ```
-Manually indicate that the session was renewed.
+Manually indicate that the session should be renewed. It will send a hearbeat to the file you specified, clear out old timeoutes, and create new timeouts so that users are not warned about expiration or redirected prematurely.
+
+In order to make sure the timeouts stay 'in sync' with the actual session expiry, you should also use this function anytime you perform an action that renewed the session, such as contacting a server-processed file (for example Ajax posting to a ColdFusion .cfc or .cfm file).
 
 Argument | Data type | Description
 ---|---|---
@@ -66,13 +68,12 @@ warningMins | int | Minutes before expiry to display warning.
 warningSecs | int | Seconds before expiry to display warning.  
 heartbeatFilepath | string | Filepath of file to send an Ajax post to in order to keep the session alive.  
 expiryFilepath | string | Filepath of file to redirect to after session has expired.
+
 #### clockworkHeart.perpetual()
 ```javascript
 clockworkHeart.perpetual(days,hours,mins,secs,heartbeatFilepath);
 ```
-Send a constant heartbeat to the server to keep the session alive for as long as this JavaScript is running.
-
-Don't use this at the same time as `clockworkHeart.start()` or `clockworkHeart.restart()`. It's meant to be used as way of keeping a user's session alive as long as their browser is open--without requiring any user interaction.
+Send a constant heartbeat to the server to keep the session alive for as long as the user's browser is open and is running JavaScript. It does this silently in the background without requiring any user interaction.
 
 Argument | Data type | Description
 ---|---|---
@@ -80,7 +81,9 @@ days | int | Days until session expiry.
 hours | int | Hours until session expiry.  
 mins | int | Minutes until session expiry.  
 secs | int | Seconds until session expiry.  
-heartbeatFilepath | string | Filepath of file to send an Ajax post to in order to keep the session alive.  
+heartbeatFilepath | string | Filepath of file to send an Ajax post to in order to keep the session alive. 
+
+WARNING: *Do not* use `clockworkHeart.perpetual()` at the same time as `clockworkHeart.start()` or `clockworkHeart.restart()`. Undesired behavior will occur if you do! (The user will get session expiration warnings, even though the session is automatically renewed! Furthermore, if the user doesn't interact with the session expiration warnings to ask for more time, the timeout will assume the session has expired and redirect them to the specified page. In reality the session will still be alive because `clockworkHeart.perpetual()` is keeping it alive! In short, these methods are not meant to be used together and strange things will happen if you try to use them together.)
 
 #### clockworkHeart.beat()
 Manually send a heartbeat to keep the session alive--generally use `clockworkHeart.restart` instead of this.
