@@ -29,26 +29,27 @@ Start a clockworkHeart.
 ```javascript
 clockworkHeart.start(0,0,30,0,1,0,"heartbeat.cfm","index.cfm?reason=sessionexpired");
 ```
-That's all there is to it. In this example the clockworkHeart has been told that the session will expire in 30 minutes and it will display a warning message 1 minute before the session expires. If the interact with the warning message to ask for more time, a hearbeat is sent to the file `heartbeat.cfm`, thus keeping the session alive. When the session does expire, the user is redirected to `index.cfm?reason=sessionexpired`.
+That's all there is to it! In this example the clockworkHeart has been told that the session will expire in 30 minutes and it will display a warning message 1 minute before the session expires. If the user interacts with the warning message to ask for more time, a hearbeat is sent to the file `heartbeat.cfm`, thus keeping the session alive. When the session does expire, the user is redirected to `index.cfm?reason=sessionexpired`.
 
 ## Full Documentation
 ### Methods
 #### clockworkHeart.start()
-Start a clockworkHeart.
-
-Arguments:
-
-1. days - days until session expiry.  
-2. hours - hours until session expiry.  
-3. mins - minutes until session expiry.  
-4. secs - seconds until session expiry.  
-5. warningMins - minutes before expiry to display warning.  
-6. warningSecs - seconds before expiry to display warning.  
-7. heartbeatFilepath - filepath of file to $.post to in order to keep the session alive.  
-8. expiryFilepath - filepath of file to redirect to after session has expired.
 ```javascript
 clockworkHeart.start(days,hours,mins,secs,warningMins,warningSecs,heartbeatFilepath,expiryFilepath);
 ```
+Start a clockworkHeart. Specify the time until session expiry, the time before session expiry that you want a warning to be displayed, what file to send heartbeats to, and where to redirect to after expiry.
+
+Argument | Data type | Description
+---|---|---
+days | int | Days until session expiry.  
+hours | int | Hours until session expiry.  
+mins | int | Minutes until session expiry.  
+secs | int | Seconds until session expiry.  
+warningMins | int | Minutes before expiry to display warning.  
+warningSecs | int | Seconds before expiry to display warning.  
+heartbeatFilepath | string | Filepath of file to send an Ajax post to in order to keep the session alive.  
+expiryFilepath | string | Filepath of file to redirect to after session has expired.
+
 #### clockworkHeart.restart()
 Manually indicate that the session was renewed.
 ```javascript
