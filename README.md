@@ -86,39 +86,70 @@ heartbeatFilepath | string | Filepath of file to send an Ajax post to in order t
 WARNING: *Do not* use `clockworkHeart.perpetual()` at the same time as `clockworkHeart.start()` or `clockworkHeart.restart()`. Undesired behavior will occur if you do! (The user will get session expiration warnings, even though the session is automatically renewed! Furthermore, if the user doesn't interact with the session expiration warnings to ask for more time, the timeout will assume the session has expired and redirect them to the specified page. In reality the session will still be alive because `clockworkHeart.perpetual()` is keeping it alive! In short, these methods are not meant to be used together and strange things will happen if you try to use them together.)
 
 #### clockworkHeart.beat()
-Manually send a heartbeat to keep the session alive--generally use `clockworkHeart.restart` instead of this.
 ```javascript
 clockworkHeart.beat(heartbeatFilepath);
 ```
+Manually send a heartbeat to keep the session alive. 
+
+Argument | Data type | Description
+---|---|---
+heartbeatFilepath | string | Filepath of file to send an Ajax post to in order to keep the session alive. 
+
+WARNING: If your application uses `clockworkHeart.start()` to keep track of session expiration you will almost always want to use `clockworkHeart.restart()` to extend the session, instead of manually sending a `clockworkHeart.beat()`. Unlike `clockworkHeart.restart()`, `clockworkHeart.beat()` does not clear and reset old timeouts, so session expiration warnings and redirects may occur earlier than expected.
+
 ### Variables
 #### clockworkHeart.debug
-Defaults to `false`.
-
-Set this to `true` if you want to see debugging info logged in the console.
 ```javascript
 clockworkHeart.debug = true|false;
 ```
+Indicates whether or not debugging info will be logged to the console.
+
+Data type | Default | Description
+---|---|---
+boolean | `false` | Set to `true` to display debugging info in the console.
+
 #### clockworkHeart.warningTitleText
 ```javascript
-clockworkHeart.debug = "string";
+clockworkHeart.warningTitleText = "string";
 ```
+
+Data type | Default | Description
+---|---|---
+string | "Need more time?" | Text to display in the title of the session expiry warning modal.
+
 #### clockworkHeart.warningMessageText
 ```javascript
-clockworkHeart.debug = "string";
+clockworkHeart.warningMessageText = "string";
 ```
+
+Data type | Default | Description
+---|---|---
+string | "It looks like you've been inactive for some time. For security, you will be automatically logged out soon. Do you need more time?" | Text to display in the body of the session expiry warning modal.
+
 #### clockworkHeart.warningButtonText
 ```javascript
-clockworkHeart.debug = "string";
+clockworkHeart.warningButtonText = "string";
 ```
+
+Data type | Default | Description
+---|---|---
+string | "Yes, extend my time." | Text to display in the button of the session expiry warning modal. (The button that extends the session.)
+
 ### Timeout Variables
 Generally there isn't going to be a good reason to access these yourself, but if you really want to you can.
 #### clockworkHeart.sessionOverTimeout
-This is the timeout that keeps track of when the session will end. It redirect the user to the page you specified in `clockworkHeart.start()` or `clockworkHeart.restart()`. You could manually kill it with...
 ```javascript
-clearTimeout(clockworkHeart.sessionOverTimeout);
+clockworkHeart.sessionOverTimeout
 ```
+This is the timeout that keeps track of when the session will end. It redirects the user to the page you specified in `clockworkHeart.start()` or `clockworkHeart.restart()`.
+
+One reason you might want to manually access the timeout is to kill it. You can kill it like any timeout by using `clearTimeout()` for example: `clearTimeout(clockworkHeart.sessionOverTimeout);`
+
 #### clockworkHeart.displayWarningTimeout
-This is the timeout that keeps track of when the warning modal should be displayed. You could manually kill it with... 
 ```javascript
-clearTimeout(clockworkHeart.displayWarningTimeout);
+clockworkHeart.displayWarningTimeout
 ```
+This is the timeout that keeps track of when the warning modal should be displayed.
+
+One reason you may wish to manually access this timeout is to kill it, for example: `clearTimeout(clockworkHeart.displayWarningTimeout);`
+
