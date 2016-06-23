@@ -1,4 +1,4 @@
-# clockworkHeart
+# clockworkHeart 1.0.0
 A js library to help warn about, extend and redirect after server-side session expirations.
 
 ## About
@@ -29,7 +29,7 @@ Start a clockworkHeart.
 ```javascript
 clockworkHeart.start(0,0,30,0,1,0,"heartbeat.cfm","index.cfm?reason=sessionexpired");
 ```
-That's all there is to it. In this example the clockworkHeart has been told that the session will expire in 30 minutes and it will display a warning message 1 minute before the session expires.
+That's all there is to it. In this example the clockworkHeart has been told that the session will expire in 30 minutes and it will display a warning message 1 minute before the session expires. If the interact with the warning message to ask for more time, a hearbeat is sent to the file `heartbeat.cfm`, thus keeping the session alive. When the session does expire, the user is redirected to `index.cfm?reason=sessionexpired`.
 
 ## Full Documentation
 ### Methods
