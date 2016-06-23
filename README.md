@@ -51,17 +51,37 @@ heartbeatFilepath | string | Filepath of file to send an Ajax post to in order t
 expiryFilepath | string | Filepath of file to redirect to after session has expired.
 
 #### clockworkHeart.restart()
-Manually indicate that the session was renewed.
 ```javascript
 clockworkHeart.restart(days,hours,mins,secs,warningMins,warningSecs,heartbeatFilepath,expiryFilepath);
 ```
-#### clockworkHeart.perpetual()
-Send a constant heartbeat to the server to keep the session alive for as long as this JavaScript is running.
+Manually indicate that the session was renewed.
 
-Don't use this as the same time as `clockworkHeart.start()` or `clockworkHeart.reset()`. It's meant to be used as way of keeping a user's session alive as long as their browser is open--without requiring any user interaction.
+Argument | Data type | Description
+---|---|---
+days | int | Days until session expiry.  
+hours | int | Hours until session expiry.  
+mins | int | Minutes until session expiry.  
+secs | int | Seconds until session expiry.  
+warningMins | int | Minutes before expiry to display warning.  
+warningSecs | int | Seconds before expiry to display warning.  
+heartbeatFilepath | string | Filepath of file to send an Ajax post to in order to keep the session alive.  
+expiryFilepath | string | Filepath of file to redirect to after session has expired.
+#### clockworkHeart.perpetual()
 ```javascript
 clockworkHeart.perpetual(days,hours,mins,secs,heartbeatFilepath);
 ```
+Send a constant heartbeat to the server to keep the session alive for as long as this JavaScript is running.
+
+Don't use this at the same time as `clockworkHeart.start()` or `clockworkHeart.restart()`. It's meant to be used as way of keeping a user's session alive as long as their browser is open--without requiring any user interaction.
+
+Argument | Data type | Description
+---|---|---
+days | int | Days until session expiry.  
+hours | int | Hours until session expiry.  
+mins | int | Minutes until session expiry.  
+secs | int | Seconds until session expiry.  
+heartbeatFilepath | string | Filepath of file to send an Ajax post to in order to keep the session alive.  
+
 #### clockworkHeart.beat()
 Manually send a heartbeat to keep the session alive--generally use `clockworkHeart.restart` instead of this.
 ```javascript
@@ -89,12 +109,12 @@ clockworkHeart.debug = "string";
 ```
 ### Timeout Variables
 Generally there isn't going to be a good reason to access these yourself, but if you really want to you can.
-### clockworkHeart.sessionOverTimeout
+#### clockworkHeart.sessionOverTimeout
 This is the timeout that keeps track of when the session will end. It redirect the user to the page you specified in `clockworkHeart.start()` or `clockworkHeart.restart()`. You could manually kill it with...
 ```javascript
 clearTimeout(clockworkHeart.sessionOverTimeout);
 ```
-### clockworkHeart.displayWarningTimeout
+#### clockworkHeart.displayWarningTimeout
 This is the timeout that keeps track of when the warning modal should be displayed. You could manually kill it with... 
 ```javascript
 clearTimeout(clockworkHeart.displayWarningTimeout);
