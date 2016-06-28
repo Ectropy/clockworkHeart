@@ -107,7 +107,7 @@ function define_clockworkHeart(){
 			setTimeout(
 				function(){
 					clockworkHeart.beat(heartbeatFilepath);
-					clockworkHeart.perpetual(days,hours,mins,secs,filepath);
+					clockworkHeart.perpetual(days,hours,mins,secs,heartbeatFilepath);
 				//Once we are 98% of the way to the timeout, the heartbeat is sent.
 				//This way the session should never actually expired before before we try to renew it.
 				}, milliseconds-(milliseconds*0.02)
@@ -131,6 +131,9 @@ return clockworkHeart;
 //If the object "clockworkHeart" is not already being used, create that object and define this library's functions in it.
 if(typeof(clockworkHeart) === 'undefined'){
     window.clockworkHeart = define_clockworkHeart();
+}
+else{
+	console.log("ERROR: Unable to instantiate clockworkHeart object because the global variable (clockworkHeart) is not undefined. Perhaps it is already being used by a different JavaScript library?");
 }
 
 })(window); //Give the IIFE window object as an argument.
