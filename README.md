@@ -21,11 +21,13 @@ _Please update this README.md and submit a pull request if you've tested clockwo
   * [Bootstrap](http://getbootstrap.com/) (Tested with 3.3.6, should work with versions as far back as 3.0.0)
  
 ## Usage
-Import `clockworkHeart.js` after Bootstrap and Bootbox scripts.
+1) Import `clockworkHeart.js` after Bootstrap and Bootbox scripts.
 ```html
 <script src="clockworkHeart.js"></script>
 ```
-Start a clockworkHeart.
+2) Place `heartbeat.cfm` somewhere in your application, for example in the root directory.
+
+3) Start a clockworkHeart.
 ```javascript
 clockworkHeart.start(0,0,30,0,1,0,"heartbeat.cfm","index.cfm?reason=sessionexpired");
 ```
