@@ -1,3 +1,6 @@
+//clockworkHeart
+//Version 1.0.1
+
 //This is an Immediately Invoked Function Expression (IIFE) that wraps all of
 //the code and accepts the window object as an argument.
 (function(window){
