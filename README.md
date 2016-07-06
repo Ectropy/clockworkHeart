@@ -1,4 +1,4 @@
-# clockworkHeart 1.0.1
+# clockworkHeart 1.0.2
 A js library to help warn about, extend and redirect after server-side session expirations.
 
 ## About
