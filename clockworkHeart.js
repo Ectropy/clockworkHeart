@@ -1,5 +1,5 @@
 //clockworkHeart
-//Version 1.0.1
+//Version 1.0.2
 
 //This is an Immediately Invoked Function Expression (IIFE) that wraps all of
 //the code and accepts the window object as an argument.
@@ -30,7 +30,7 @@ function define_clockworkHeart(){
 		//When the page first loads, start a js timeout based on the serverside sessionTimeout.
 		clockworkHeart.sessionOverTimeout = setTimeout(
 			function(){
-				//location.href = expiryFilepath;
+				location.href = expiryFilepath;
 			//To ensure that the session has expired by the time the js has redirected, we add 2 seconds to the time.
 			}, milliseconds+2000);
 			
